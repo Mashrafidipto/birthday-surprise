@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="nightBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#080711" />
+      <stop offset="45%" stop-color="#140f29" />
+      <stop offset="85%" stop-color="#2a1638" />
+      <stop offset="100%" stop-color="#11091a" />
+    </linearGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff8e7" stop-opacity="1" />
+      <stop offset="30%" stop-color="#ffd599" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#2a1638" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="vignette" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0.8" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1200" fill="url(#nightBg)" />
+  <!-- Glowing Moon -->
+  <circle cx="580" cy="360" r="140" fill="url(#moonGlow)" />
+  <circle cx="580" cy="360" r="60" fill="#fff9eb" opacity="0.95" />
+  <!-- Fairy Lights String -->
+  <path d="M-20,180 Q200,320 420,220 T820,260" fill="none" stroke="#5a3d68" stroke-width="2" />
+  <g fill="#ffe082">
+    <circle cx="80" cy="235" r="7" filter="drop-shadow(0 0 10px #ffb300)" />
+    <circle cx="180" cy="275" r="9" filter="drop-shadow(0 0 12px #ffb300)" />
+    <circle cx="280" cy="270" r="8" filter="drop-shadow(0 0 10px #ffb300)" />
+    <circle cx="380" cy="230" r="9" filter="drop-shadow(0 0 14px #ffb300)" />
+    <circle cx="480" cy="225" r="7" filter="drop-shadow(0 0 10px #ffb300)" />
+    <circle cx="580" cy="245" r="9" filter="drop-shadow(0 0 12px #ffb300)" />
+    <circle cx="680" cy="255" r="8" filter="drop-shadow(0 0 10px #ffb300)" />
+  </g>
+  <!-- Romantic silhouette resting under stars -->
+  <path d="M-20,980 Q250,860 500,890 T820,950 L820,1220 L-20,1220 Z" fill="#09050d" />
+  <g fill="#09050d">
+    <!-- Leaning heads under starry sky -->
+    <circle cx="360" cy="800" r="25" />
+    <circle cx="400" cy="805" r="23" />
+    <path d="M330,830 Q370,820 430,830 L420,930 L340,930 Z" />
+  </g>
+  <!-- Constellation Hearts -->
+  <g stroke="#f8bbd0" stroke-width="1.5" fill="none" opacity="0.6">
+    <path d="M220,440 L240,410 L270,425 L240,465 Z" />
+  </g>
+  <rect width="800" height="1200" fill="url(#vignette)" />
+</svg>

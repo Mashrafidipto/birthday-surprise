@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a0b1e" />
+      <stop offset="40%" stop-color="#3d132b" />
+      <stop offset="70%" stop-color="#802b48" />
+      <stop offset="100%" stop-color="#e27c59" />
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff5db" stop-opacity="1" />
+      <stop offset="35%" stop-color="#fdbb6a" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#e27c59" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="glow" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0d0510" stop-opacity="0.85" />
+      <stop offset="50%" stop-color="#0d0510" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#0d0510" stop-opacity="0.6" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="800" height="1200" fill="url(#bg)" />
+  <!-- Sun / Horizon Glow -->
+  <circle cx="400" cy="760" r="320" fill="url(#sun)" />
+  <!-- Ocean / Horizon line -->
+  <ellipse cx="400" cy="940" rx="600" ry="80" fill="#200a1c" opacity="0.9" />
+  <!-- Romantic Silhouette: Couple by the Sunset -->
+  <g fill="#120512">
+    <!-- Hill -->
+    <path d="M-50,960 Q200,890 400,900 T850,970 L850,1250 L-50,1250 Z" />
+    <!-- Lovers silhouette -->
+    <!-- Person 1 -->
+    <circle cx="370" cy="780" r="24" />
+    <path d="M350,810 Q370,805 385,810 Q395,845 390,900 L345,900 Z" />
+    <!-- Person 2 -->
+    <circle cx="418" cy="790" r="22" />
+    <path d="M395,815 Q420,810 435,818 Q440,850 430,900 L385,900 Z" />
+    <!-- Hand in hand embrace -->
+    <path d="M365,830 Q395,850 420,835" stroke="#120512" stroke-width="10" stroke-linecap="round" />
+  </g>
+  <!-- Ambient Sparkles -->
+  <g fill="#ffecc2" opacity="0.75">
+    <circle cx="200" cy="300" r="2.5" />
+    <circle cx="280" cy="220" r="1.5" />
+    <circle cx="600" cy="280" r="2.8" />
+    <circle cx="680" cy="380" r="2" />
+    <circle cx="150" cy="500" r="3" />
+    <circle cx="620" cy="520" r="2" />
+  </g>
+  <!-- Cinematic Vignette Overlay -->
+  <rect width="800" height="1200" fill="url(#glow)" />
+</svg>
