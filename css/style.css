@@ -77,7 +77,7 @@ body.story-locked {
   z-index: 999;
 }
 
-/* Subtle 35mm Film Grain Overlay */
+/* Subtle 35mm Film Grain Overlay (GPU Layered) */
 .film-grain {
   position: fixed;
   top: 0;
@@ -87,6 +87,8 @@ body.story-locked {
   pointer-events: none;
   z-index: 3;
   opacity: 0.035;
+  transform: translateZ(0);
+  will-change: opacity;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
@@ -373,13 +375,14 @@ body.story-locked {
   padding: 2rem 1.5rem;
   text-align: center;
   background: radial-gradient(circle at center, #180d1d 0%, #060408 85%);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
 }
 
 .scene-countdown.hidden {
   opacity: 0;
   pointer-events: none;
-  transform: scale(1.05);
+  transform: scale(1.06) translate3d(0, -15px, 0);
 }
 
 .countdown-container {
@@ -387,12 +390,27 @@ body.story-locked {
   flex-direction: column;
   align-items: center;
   max-width: 520px;
+  position: relative;
+}
+
+#countdown-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+#countdown-box.fade-out {
+  opacity: 0;
+  transform: scale(0.92) translate3d(0, -10px, 0);
+  pointer-events: none;
 }
 
 .countdown-ring-box {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -426,19 +444,22 @@ body.story-locked {
 
 .countdown-number {
   font-family: var(--font-serif);
-  font-size: 5.5rem;
+  font-size: clamp(3.8rem, 12vw, 5.5rem);
   font-weight: 700;
   color: var(--accent-gold-bright);
-  text-shadow: 0 0 30px rgba(242, 203, 119, 0.6), 0 0 60px rgba(255, 117, 143, 0.4);
+  text-shadow: 0 0 25px rgba(242, 203, 119, 0.6), 0 0 50px rgba(255, 117, 143, 0.4);
   line-height: 1;
-  animation: countPulse 1.4s ease-out infinite;
+  text-align: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: transform, opacity;
 }
 
-@keyframes countPulse {
-  0% { transform: scale(0.85); opacity: 0; }
-  25% { transform: scale(1.05); opacity: 1; }
-  85% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.15); opacity: 0; }
+.countdown-number.clock-format {
+  font-size: clamp(1.4rem, 4.8vw, 2.1rem);
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 .countdown-quote {
@@ -450,7 +471,8 @@ body.story-locked {
   line-height: 1.4;
   margin-bottom: 0.6rem;
   min-height: 3.5rem;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
 }
 
 .countdown-subquote {
@@ -459,20 +481,55 @@ body.story-locked {
   text-transform: uppercase;
   color: var(--accent-rose);
   opacity: 0.9;
+  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
 }
 
-/* Climax Reveal: Happy Birthday Flash */
+/* Climax Reveal: Happy Birthday Free-Flowing Bloom */
 .countdown-climax {
   display: none;
   flex-direction: column;
   align-items: center;
-  animation: climaxZoom 1.2s var(--ease-cinematic) forwards;
+  position: relative;
+  will-change: transform, opacity;
 }
 
-@keyframes climaxZoom {
-  0% { transform: scale(0.6); opacity: 0; filter: blur(10px); }
-  60% { transform: scale(1.04); opacity: 1; filter: blur(0px); }
-  100% { transform: scale(1); opacity: 1; }
+.countdown-climax.revealed {
+  animation: climaxBloom 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes climaxBloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translate3d(0, 24px, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translate3d(0, -3px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.climax-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(88vw, 440px);
+  height: min(88vw, 440px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 203, 119, 0.22) 0%, rgba(255, 117, 143, 0.12) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  animation: haloExpand 3s ease-in-out infinite alternate;
+}
+
+@keyframes haloExpand {
+  0% { transform: translate(-50%, -50%) scale(0.88); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.95; }
 }
 
 .climax-headline {
@@ -571,7 +628,7 @@ body.story-locked {
   width: 100%;
 }
 
-/* Slide Backdrop & Ken Burns Pan-Zoom */
+/* Slide Backdrop & Fluid Ken Burns Dual Layers */
 .slide-background {
   position: absolute;
   inset: 0;
@@ -579,6 +636,30 @@ body.story-locked {
   height: 100%;
   z-index: 10;
   overflow: hidden;
+  background-color: var(--bg-deep);
+}
+
+.slide-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+  will-change: opacity;
+}
+
+.slide-layer.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.slide-layer.outgoing {
+  opacity: 0;
+  visibility: visible;
+  z-index: 1;
 }
 
 .slide-img {
@@ -587,12 +668,23 @@ body.story-locked {
   object-fit: cover;
   object-position: center;
   transform: scale(1.0);
-  transition: transform 6s cubic-bezier(0.1, 0, 0.2, 1);
+  transform-origin: center 28%;
   will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
-.slide-background.active .slide-img {
-  transform: scale(1.12) translate3d(0, -10px, 0);
+.slide-layer.active .slide-img {
+  animation: kenBurnsSmooth 6.5s cubic-bezier(0.15, 0, 0.25, 1) forwards;
+}
+
+@keyframes kenBurnsSmooth {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.06);
+  }
 }
 
 /* Cinematic Dark Vignette & Gradient Overlays */
@@ -602,10 +694,11 @@ body.story-locked {
   z-index: 20;
   background: linear-gradient(
     180deg,
-    rgba(8, 6, 11, 0.7) 0%,
-    rgba(8, 6, 11, 0.15) 30%,
-    rgba(8, 6, 11, 0.25) 55%,
-    rgba(8, 6, 11, 0.95) 90%,
+    rgba(8, 6, 11, 0.55) 0%,
+    rgba(8, 6, 11, 0) 18%,
+    rgba(8, 6, 11, 0) 48%,
+    rgba(8, 6, 11, 0.55) 70%,
+    rgba(8, 6, 11, 0.92) 88%,
     #08060b 100%
   );
   pointer-events: none;
@@ -642,7 +735,13 @@ body.story-locked {
   display: flex;
   flex-direction: column;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+.story-caption-box.changing {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .story-phone-container.paused .story-caption-box {
@@ -1169,11 +1268,27 @@ body.story-locked {
 }
 
 /* -------------------------------------------------------------------
-   MEDIA QUERIES FOR ULTRA-SMALL SCREENS (e.g. iPhone SE)
+   MEDIA QUERIES FOR MOBILE SCREENS
    ------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .story-caption-box {
+    padding: 1.4rem 1.25rem max(16px, env(safe-area-inset-bottom));
+  }
+  .caption-title {
+    font-size: clamp(1.5rem, 5.5vw, 2.1rem);
+    margin-bottom: 0.45rem;
+  }
+  .caption-body {
+    font-size: 1.02rem;
+    line-height: 1.55;
+    margin-bottom: 0.9rem;
+  }
+}
+
 @media (max-width: 360px) {
   .prelude-title { font-size: 2rem; }
   .btn-cinematic-enter { padding: 0.9rem 2rem; font-size: 0.85rem; }
-  .caption-title { font-size: 1.6rem; }
+  .caption-title { font-size: 1.45rem; }
+  .caption-body { font-size: 0.95rem; }
   .letter-salutation { font-size: 2.1rem; }
 }

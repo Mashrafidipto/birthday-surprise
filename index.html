@@ -10,8 +10,15 @@
 
   <!-- Open Graph Meta Tags (For WhatsApp / iMessage / Messenger previews) -->
   <meta property="og:title" content="A Birthday Surprise Made Just For You ✨">
-  <meta property="og:description" content="Put on your headphones. A cinematic story made with love.">
+  <!-- <meta property="og:description" content="Put on your headphones. A cinematic story made with love."> -->
   <meta property="og:type" content="website">
+
+  <!-- Preload First Story Slides for Zero-Latency Mobile Playback -->
+  <link rel="preload" as="image" href="./images/slide1.jpeg">
+  <link rel="preload" as="image" href="./images/slide2.jpeg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="./css/style.css">
@@ -95,9 +102,10 @@
 
       <!-- Climax Reveal (Happy Birthday Explosion) -->
       <div class="countdown-climax" id="countdown-climax">
-        <h2 class="climax-headline">✨ HAPPY BIRTHDAY ✨</h2>
+        <div class="climax-halo"></div>
+        <h2 class="climax-headline" id="climax-headline">✨ HAPPY BIRTHDAY ✨</h2>
         <div class="climax-lover-name" id="climax-lover-name">My Love</div>
-        <p class="climax-sub">Today and always, my heart is yours</p>
+        <p class="climax-sub" id="climax-sub">Today and always, my heart is yours</p>
       </div>
     </div>
   </section>
@@ -111,9 +119,14 @@
       <!-- Top Progress Bars (One per slide) -->
       <div class="story-progress-bar-container" id="story-progress-container"></div>
 
-      <!-- Background Image with Ken Burns Zoom -->
-      <div class="slide-background active" id="slide-background">
-        <img src="./images/slide1.svg" class="slide-img" alt="Memory">
+      <!-- Background Image with Ken Burns Zoom (Dual-Layer for Fluid Mobile Crossfades) -->
+      <div class="slide-background" id="slide-background">
+        <div class="slide-layer active" id="slide-layer-a">
+          <img src="./images/slide1.jpeg" class="slide-img" alt="Memory" style="object-position: 54% center;">
+        </div>
+        <div class="slide-layer" id="slide-layer-b">
+          <img src="./images/slide2.jpeg" class="slide-img" alt="Memory" style="object-position: center 22%;">
+        </div>
       </div>
 
       <!-- Dark Vignette Overlay -->
@@ -181,7 +194,7 @@
     <!-- SCENE 4: INTERACTIVE BIRTHDAY CAKE & WISH -->
     <section class="section-anchor" id="cake-section">
       <div class="section-header">
-        <p class="section-pretitle">11:11 Birthday Wish</p>
+        <p class="section-pretitle">Birthday Wish</p>
         <h2 class="section-heading">Make a Wish</h2>
       </div>
 
