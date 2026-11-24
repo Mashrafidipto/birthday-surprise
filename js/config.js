@@ -9,8 +9,8 @@ const BIRTHDAY_CONFIG = {
   // -----------------------------------------------------------------
   // 1. RECIPIENT & SENDER DETAILS
   // -----------------------------------------------------------------
-  recipientName: "My Love",        // Change to her/his name or nickname (e.g., "Aria", "Sweetheart")
-  senderName: "Yours Forever",     // Your name or sign-off (e.g., "Always Yours", "Dipto")
+  recipientName: "Itoshi",        // Change to her/his name or nickname (e.g., "Aria", "Sweetheart")
+  senderName: "Tanmoy",     // Your name or sign-off (e.g., "Always Yours", "Dipto")
   celebrationTitle: "Happy Birthday, My Heart",
   subtitle: "Every second with you is my favorite chapter in life.",
 
